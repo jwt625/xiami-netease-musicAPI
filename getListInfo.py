@@ -1,8 +1,11 @@
+'''
+Get information of NetEase music playlist
 
-# encrypt algorithm from
-# https://github.com/darknessomi/musicbox/wiki/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%96%B0%E7%89%88WebAPI%E5%88%86%E6%9E%90%E3%80%82
-#
-# jwt, 2016/12/31
+encrypt algorithm from
+https://github.com/darknessomi/musicbox/wiki/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%96%B0%E7%89%88WebAPI%E5%88%86%E6%9E%90%E3%80%82
+
+jwt, 2016/12/31
+'''
 
 import json
 import os
@@ -41,6 +44,7 @@ def encrypted_request(text):
     }
     return data
 
+# change the id to the playlist you want
 text = {
     "id": 80854505,
     "offset": 0,
@@ -63,8 +67,8 @@ r=sess.post(url, encText)
 # number of tracks
 idsJSON = r.json()['playlist']['trackIds']
 print(len(idsJSON))
+# save trackIds to JSON file
 file = open('trackIds.json','w')
-# file.write(json.dumps(r.json(), sort_keys=True,indent=4, separators=(',', ': ')))
 file.write(json.dumps(idsJSON, sort_keys=True,indent=4, separators=(',', ': ')))
 file.close()
 
@@ -72,11 +76,13 @@ file.close()
 ids = []
 for i in range(len(idsJSON)):
     ids.append(idsJSON[i]['id'])
+# ids saved to ids.json
 file = open('ids.json','w')
 file.write(ids.__str__())
 file.close()
 
 # get song info, not so useful for song information
+# incluing download url
 urlSong = 'http://music.163.com/weapi/song/enhance/player/url?csrf_token='
 
 req = {

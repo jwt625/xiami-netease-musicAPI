@@ -1,3 +1,7 @@
+'''
+export xiami's music list into .kgl
+and artist/song name into JSON
+'''
 
 #coding=utf-8
 
